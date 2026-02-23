@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dgtei7v6cq541"]
+
+[sub_resource type="Curve" id="Curve_dpsce"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_fc1yj"]
+offsets = PackedFloat32Array(0.5405405, 1)
+colors = PackedColorArray(0.3, 0.4050001, 1, 1, 0.106666565, 0, 0.32, 0)
+
+[sub_resource type="Curve" id="Curve_fc1yj"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="GDScript" id="GDScript_dpsce"]
+resource_name = "impatc"
+script/source = "extends CPUParticles2D
+
+func _on_finished() -> void:
+	queue_free()
+"
+
+[node name="Impact" type="CPUParticles2D" unique_id=342111294]
+emitting = false
+amount = 12
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+spread = 10.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 250.0
+initial_velocity_max = 589.02
+angle_max = 720.0
+scale_amount_min = 10.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_dpsce")
+color_ramp = SubResource("Gradient_fc1yj")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_fc1yj")
+script = SubResource("GDScript_dpsce")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

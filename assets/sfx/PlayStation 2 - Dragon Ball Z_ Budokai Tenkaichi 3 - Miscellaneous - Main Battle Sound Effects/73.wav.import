@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c18bce8e1frtd"
+path="res://.godot/imported/73.wav-e3aba7617c55b4706ac8097f9359d2fe.sample"
+
+[deps]
+
+source_file="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/73.wav"
+dest_files=["res://.godot/imported/73.wav-e3aba7617c55b4706ac8097f9359d2fe.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cdvx6i01t52sm"]
+
+[ext_resource type="Script" uid="uid://bxjumb5a0mans" path="res://autoloads/autoload_script_effects.gd" id="1_vvkae"]
+
+[node name="Effects" type="Node2D" unique_id=1670357039]
+top_level = true
+z_index = 256
+script = ExtResource("1_vvkae")

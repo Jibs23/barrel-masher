@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c3b7tmvwyx75j"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gffqc"]
+bounce = 1.0
+
+[sub_resource type="GDScript" id="GDScript_gffqc"]
+resource_name = "key"
+script/source = "extends RigidBody2D
+
+var text:String = \"X\":
+	set(new):
+		$Label.text = new
+		text = new
+@export var push_min:float = 1
+@export var push_max:float = 100
+
+func get_random_push() -> float:
+	return randf_range(push_min,push_max)
+
+func add_jump(amount:float) -> void:
+	var jump:Vector2 = Vector2.UP
+	apply_central_impulse(Vector2(jump.x-randf_range(-1,1),jump.y-amount))
+
+func _ready() -> void:
+	add_jump(get_random_push())
+
+func _process(_delta: float) -> void:
+	if position.y > 760: queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gffqc"]
+size = Vector2(32, 32)
+
+[node name="Key" type="RigidBody2D" unique_id=811084912]
+collision_layer = 2
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_gffqc")
+script = SubResource("GDScript_gffqc")
+push_min = 500.0
+push_max = 850.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2090826854]
+visible = false
+shape = SubResource("RectangleShape2D_gffqc")
+
+[node name="Label" type="Label" parent="." unique_id=435252300]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1

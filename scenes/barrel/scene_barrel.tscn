@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://bxtxgy8o6nwbc"]
+
+[ext_resource type="Script" uid="uid://y4wthy2dhixm" path="res://scenes/barrel/script_barrel.gd" id="1_880dv"]
+[ext_resource type="Texture2D" uid="uid://b4h0bqoxhk3sn" path="res://scenes/barrel/sprite_barrel.aseprite" id="2_omtq0"]
+[ext_resource type="Texture2D" uid="uid://dd0ugcf6qpmld" path="res://scenes/barrel/sprite_cat.aseprite" id="3_qpohj"]
+[ext_resource type="AudioStream" uid="uid://dgfrms320vt7b" path="res://assets/kids_cheering.mp3" id="4_omtq0"]
+
+[sub_resource type="Curve" id="Curve_omtq0"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6q06x"]
+radius = 95.0
+height = 336.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ow5a4"]
+
+[node name="Barrel" type="RigidBody2D" unique_id=830410906]
+script = ExtResource("1_880dv")
+
+[node name="Barrel" type="Sprite2D" parent="." unique_id=1706418184]
+texture = ExtResource("2_omtq0")
+hframes = 3
+
+[node name="Background" type="Sprite2D" parent="Barrel" unique_id=1784228424]
+visible = false
+z_index = -1
+texture = ExtResource("2_omtq0")
+hframes = 3
+frame = 2
+
+[node name="Candy" type="CPUParticles2D" parent="Barrel" unique_id=1389588983]
+show_behind_parent = true
+position = Vector2(0, 64)
+emitting = false
+amount = 96
+lifetime = 0.7
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(78, 5)
+angle_max = 720.0
+scale_amount_min = 5.0
+scale_amount_max = 9.0
+color = Color(1, 0.20999998, 0.20999998, 1)
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_omtq0")
+
+[node name="Timer" type="Timer" parent="Barrel/Candy" unique_id=1202931521]
+wait_time = 6.0
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=276753028]
+visible = false
+shape = SubResource("CapsuleShape2D_6q06x")
+
+[node name="RopeLink" type="Marker2D" parent="." unique_id=511163988]
+position = Vector2(0, -142)
+
+[node name="HitMarker" type="Marker2D" parent="." unique_id=2101385624]
+
+[node name="Sprite2D" type="Sprite2D" parent="HitMarker" unique_id=1333548564]
+visible = false
+scale = Vector2(32, 32)
+texture = SubResource("PlaceholderTexture2D_ow5a4")
+
+[node name="Cheers" type="AudioStreamPlayer2D" parent="." unique_id=965653638]
+stream = ExtResource("4_omtq0")
+bus = &"SFX"
+
+[node name="Cat" type="Sprite2D" parent="." unique_id=1931122419]
+position = Vector2(0, 24)
+texture = ExtResource("3_qpohj")
+hframes = 2
+
+[connection signal="destoryed" from="." to="Barrel/Candy/Timer" method="start"]
+[connection signal="destoryed" from="." to="Cheers" method="play"]
+[connection signal="destoryed" from="." to="Barrel" method="set_frame" binds= [1]]
+[connection signal="destoryed" from="." to="Barrel/Background" method="set_visible" binds= [true]]
+[connection signal="destoryed" from="." to="Barrel/Candy" method="set_emitting" binds= [true]]
+[connection signal="destoryed" from="." to="Cat" method="set_frame" binds= [1]]
+[connection signal="timeout" from="Barrel/Candy/Timer" to="Barrel/Candy" method="set_emitting" binds= [false]]

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://b28glamc8iw8n"]
+
+[ext_resource type="Script" uid="uid://boegm1epocxch" path="res://autoloads/autolad_script_audio.gd" id="1_scwxf"]
+[ext_resource type="AudioStream" uid="uid://d0u05aoins7y7" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/1.wav" id="2_6w1fq"]
+[ext_resource type="AudioStream" uid="uid://cblhfrcjwoais" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/2.wav" id="3_lgavf"]
+[ext_resource type="AudioStream" uid="uid://6jweppwqa8qy" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/3.wav" id="4_25kf5"]
+[ext_resource type="AudioStream" uid="uid://b85cu0brrtffm" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/4.wav" id="5_uswa2"]
+[ext_resource type="AudioStream" uid="uid://bjpcoqf0eop71" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/8.wav" id="6_mmhcr"]
+[ext_resource type="AudioStream" uid="uid://dtnuyjfmnvhak" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/9.wav" id="7_ck4ru"]
+[ext_resource type="AudioStream" uid="uid://ds3fc6md861e7" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/11.wav" id="8_ik7nh"]
+[ext_resource type="AudioStream" uid="uid://c3mcvcm5ws152" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/12.wav" id="9_66ycn"]
+[ext_resource type="AudioStream" uid="uid://385qo3cnav6e" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/15.wav" id="10_gosrf"]
+[ext_resource type="AudioStream" uid="uid://dnk2ki6ivt258" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/34.wav" id="11_kenkv"]
+[ext_resource type="AudioStream" uid="uid://bi2uhf1vhii6i" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/35.wav" id="12_u2stc"]
+[ext_resource type="AudioStream" uid="uid://dh1140c6dfsko" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/36.wav" id="13_ydj83"]
+[ext_resource type="AudioStream" uid="uid://ockydrac5bxe" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/37.wav" id="14_nvqki"]
+[ext_resource type="AudioStream" uid="uid://dmshp45bdbbp8" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/38.wav" id="15_xpyoa"]
+[ext_resource type="AudioStream" uid="uid://4xdi2r7ah231" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/39.wav" id="16_02sjj"]
+[ext_resource type="AudioStream" uid="uid://i56o1p7q7ey4" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/48.wav" id="17_d7rfi"]
+[ext_resource type="AudioStream" uid="uid://jryu5jve44gt" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/50.wav" id="18_eekuh"]
+[ext_resource type="AudioStream" uid="uid://debxp7it77msf" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/51.wav" id="19_satlk"]
+[ext_resource type="AudioStream" uid="uid://bxyof7y8g5huw" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/63.wav" id="20_rrlv1"]
+[ext_resource type="AudioStream" uid="uid://c62rdkoe0xy8h" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/66.wav" id="21_q1jad"]
+[ext_resource type="AudioStream" uid="uid://ba3lpr3jbmffj" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/70.wav" id="22_qxdbw"]
+[ext_resource type="AudioStream" uid="uid://bw61l14vxalvm" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/71.wav" id="23_fbvdk"]
+[ext_resource type="AudioStream" uid="uid://lky8n5lkncmd" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/72.wav" id="24_jqpcp"]
+[ext_resource type="AudioStream" uid="uid://c18bce8e1frtd" path="res://assets/sfx/PlayStation 2 - Dragon Ball Z_ Budokai Tenkaichi 3 - Miscellaneous - Main Battle Sound Effects/73.wav" id="25_atynp"]
+
+[node name="Audio" type="Node2D" unique_id=973480943]
+position = Vector2(320, 320)
+script = ExtResource("1_scwxf")
+sfx = Array[AudioStreamWAV]([ExtResource("2_6w1fq"), ExtResource("3_lgavf"), ExtResource("4_25kf5"), ExtResource("5_uswa2"), ExtResource("6_mmhcr"), ExtResource("7_ck4ru"), ExtResource("8_ik7nh"), ExtResource("9_66ycn"), ExtResource("10_gosrf"), ExtResource("11_kenkv"), ExtResource("12_u2stc"), ExtResource("13_ydj83"), ExtResource("14_nvqki"), ExtResource("15_xpyoa"), ExtResource("16_02sjj"), ExtResource("17_d7rfi"), ExtResource("18_eekuh"), ExtResource("19_satlk"), ExtResource("20_rrlv1"), ExtResource("21_q1jad"), ExtResource("22_qxdbw"), ExtResource("23_fbvdk"), ExtResource("24_jqpcp"), ExtResource("25_atynp")])
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=235450640]
+position = Vector2(300, 0)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="." unique_id=1984801890]
+position = Vector2(0, 300)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D4" type="AudioStreamPlayer2D" parent="." unique_id=798308247]
+position = Vector2(0, -300)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D5" type="AudioStreamPlayer2D" parent="." unique_id=1290064646]
+position = Vector2(-300, 0)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D6" type="AudioStreamPlayer2D" parent="." unique_id=2116264744]
+bus = &"SFX"

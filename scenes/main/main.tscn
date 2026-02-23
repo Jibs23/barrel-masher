@@ -1,0 +1,360 @@
+[gd_scene format=3 uid="uid://c1p7deyp8lj"]
+
+[ext_resource type="Script" uid="uid://coan1qhk4afjk" path="res://entities/key_counter/script_keycounter.gd" id="1_hyk8p"]
+[ext_resource type="Script" uid="uid://cdi1giwprjp0h" path="res://scenes/timer/script_timer_label.gd" id="2_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://bxtxgy8o6nwbc" path="res://scenes/barrel/scene_barrel.tscn" id="3_ow5a4"]
+[ext_resource type="Script" uid="uid://cjf47ghla7l66" path="res://scenes/fists/script_fists.gd" id="5_ow5a4"]
+[ext_resource type="Texture2D" uid="uid://dhrkcumritk6b" path="res://scenes/fists/sprite_fist.aseprite" id="6_hujxm"]
+[ext_resource type="Script" uid="uid://dwodg72jamne1" path="res://scenes/fists/script_fist_punch.gd" id="7_hujxm"]
+[ext_resource type="AudioStream" uid="uid://dl6uubv3aux0w" path="res://assets/music/song_fastalavn.wav" id="7_yyfjg"]
+
+[sub_resource type="GDScript" id="GDScript_b1x3f"]
+resource_name = "ui"
+script/source = "extends CanvasLayer
+
+func _ready() -> void:
+	GameManager.screen_ui = self
+"
+
+[sub_resource type="GDScript" id="GDScript_yyfjg"]
+resource_name = "gameober"
+script/source = "extends CanvasLayer
+
+func _ready() -> void:
+	GameManager.screen_gameover = self
+"
+
+[sub_resource type="GDScript" id="GDScript_ouso4"]
+script/source = "extends Label
+
+func _on_visibility_changed() -> void:
+	text = str(GameData.current_score)
+"
+
+[sub_resource type="GDScript" id="GDScript_th5th"]
+resource_name = "highscore"
+script/source = "extends Label
+
+
+func _on_visibility_changed() -> void:
+	text = str(\"HIGHSCORE IS \",GameData.get_highscore())
+"
+
+[sub_resource type="GDScript" id="GDScript_a8run"]
+script/source = "extends CanvasLayer
+
+func _ready() -> void:
+	GameManager.screen_ready = self
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3cfh"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_l3cfh"]
+b = Vector2(0, 1216)
+
+[sub_resource type="GDScript" id="GDScript_blune"]
+script/source = "extends Control
+
+const KEY:PackedScene = preload(\"res://entities/effects/floating_keys/effct_key.tscn\")
+
+func make_key(key: String, _count: int) -> RigidBody2D:
+	var new:RigidBody2D = KEY.instantiate()
+	$Keys.add_child(new)
+	new.text = key
+	new.position = pick_spawn()
+	return new
+
+func pick_spawn() -> Vector2:
+	var area:Control = $SpawnArea
+	var width:float = area.size.x
+	var height:float = area.size.y
+	var pos:Vector2 = area.position
+	
+	var output:Vector2 = Vector2(pos.x+(randf_range(0,width)),pos.y+(randf_range(0,height)))
+	
+	return output
+
+func _on_key_tracker_key_pressed(key: String, count: int) -> void:
+	make_key(key,count)
+"
+
+[sub_resource type="Animation" id="Animation_yyfjg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathLeft/Left/Fist:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b1x3f"]
+resource_name = "hover"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathLeft/Left/Fist:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.66, 0.999),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(10, 0), Vector2(10, 10), Vector2(0, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PathRight/Right/Fist:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.66, 0.999),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 10), Vector2(0, 0), Vector2(10, 0), Vector2(10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_ow5a4"]
+resource_name = "punch"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hujxm"]
+_data = {
+&"RESET": SubResource("Animation_yyfjg"),
+&"hover": SubResource("Animation_b1x3f"),
+&"punch": SubResource("Animation_ow5a4")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_hujxm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -192, 192, 0, 0, 0, 0, 0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yyfjg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 192, 192, 0, 0, 0, 0, 0, 0)
+}
+point_count = 2
+
+[sub_resource type="GDScript" id="GDScript_7smn1"]
+resource_name = "music"
+script/source = "extends AudioStreamPlayer
+
+func _ready() -> void:
+	Audio.music = self
+"
+
+[node name="Node2D" type="Node2D" unique_id=1991915166]
+
+[node name="Background" type="ColorRect" parent="." unique_id=905246467]
+z_index = -2468
+offset_left = -48.0
+offset_top = -16.0
+offset_right = 696.0
+offset_bottom = 664.0
+color = Color(0.11119685, 0.11119685, 0.11119681, 1)
+
+[node name="Ui" type="CanvasLayer" parent="." unique_id=449353899]
+visible = false
+script = SubResource("GDScript_b1x3f")
+
+[node name="TimerLabel" type="Label" parent="Ui" unique_id=1830364454]
+offset_left = 256.0
+offset_right = 384.0
+offset_bottom = 64.0
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 42
+text = "XX:XX"
+horizontal_alignment = 1
+script = ExtResource("2_yyfjg")
+
+[node name="Timer" type="Timer" parent="Ui/TimerLabel" unique_id=442645978]
+wait_time = 10.0
+one_shot = true
+
+[node name="GameOver" type="CanvasLayer" parent="." unique_id=1514532499]
+visible = false
+script = SubResource("GDScript_yyfjg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver" unique_id=1214144054]
+offset_left = 64.0
+offset_top = -24.0
+offset_right = 576.0
+offset_bottom = 296.0
+alignment = 1
+
+[node name="GameOver" type="Label" parent="GameOver/VBoxContainer" unique_id=925006093]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 81
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="YourScore" type="Label" parent="GameOver/VBoxContainer" unique_id=1766429077]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 40
+text = "YOUR SCORE"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="GameOver/VBoxContainer" unique_id=812218671]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 43
+text = "______"
+horizontal_alignment = 1
+script = SubResource("GDScript_ouso4")
+
+[node name="Highscore" type="Label" parent="GameOver/VBoxContainer" unique_id=263788780]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "HIGHSCORE IS ___"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_th5th")
+
+[node name="Label" type="Label" parent="GameOver" unique_id=111704908]
+offset_left = 192.0
+offset_top = 552.0
+offset_right = 448.0
+offset_bottom = 600.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 22
+text = "Press 'Esc' to play again!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ready" type="CanvasLayer" parent="." unique_id=603534286]
+script = SubResource("GDScript_a8run")
+
+[node name="Label" type="Label" parent="Ready" unique_id=1091253836]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 512.0
+offset_bottom = 216.0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 24
+text = "BUTTON MASH TO DESTROY, KILL AND OR annihilate THE BARREL!!!"
+autowrap_mode = 3
+uppercase = true
+
+[node name="KeyTracker" type="Node" parent="." unique_id=421158056]
+script = ExtResource("1_hyk8p")
+
+[node name="Barrel" parent="." unique_id=830410906 node_paths=PackedStringArray("rope", "fists") instance=ExtResource("3_ow5a4")]
+position = Vector2(320, 320)
+rope = NodePath("../StaticBody2D/Rope")
+fists = NodePath("../Fists")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=95883394]
+position = Vector2(320, -64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=509109255]
+shape = SubResource("RectangleShape2D_l3cfh")
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="StaticBody2D" unique_id=612427348]
+node_a = NodePath("..")
+node_b = NodePath("../../Barrel")
+
+[node name="Rope" type="Line2D" parent="StaticBody2D" unique_id=384553109]
+position = Vector2(-320, 64)
+points = PackedVector2Array(320, -64, 320, 176)
+width = 20.0
+default_color = Color(0.012617188, 0.012617188, 0.012617188, 1)
+
+[node name="WallL" type="StaticBody2D" parent="." unique_id=1433956121]
+position = Vector2(0, -384)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallL" unique_id=1813697157]
+shape = SubResource("SegmentShape2D_l3cfh")
+
+[node name="WallR" type="StaticBody2D" parent="." unique_id=1700895317]
+position = Vector2(640, -384)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallR" unique_id=633717263]
+shape = SubResource("SegmentShape2D_l3cfh")
+
+[node name="FloatingKeys" type="Control" parent="." unique_id=685247913]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_blune")
+
+[node name="SpawnArea" type="Control" parent="FloatingKeys" unique_id=1691966427]
+anchors_preset = 0
+offset_left = 128.0
+offset_top = 656.0
+offset_right = 512.0
+offset_bottom = 704.0
+
+[node name="Keys" type="Node2D" parent="FloatingKeys" unique_id=1010143838]
+
+[node name="Fists" type="Node2D" parent="." unique_id=171040936 node_paths=PackedStringArray("hit_marker", "right_fist", "left_fist")]
+position = Vector2(320, 320)
+script = ExtResource("5_ow5a4")
+hit_marker = NodePath("../Barrel/HitMarker")
+right_fist = NodePath("PathRight/Right")
+left_fist = NodePath("PathLeft/Left")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fists" unique_id=34926043]
+libraries/ = SubResource("AnimationLibrary_hujxm")
+autoplay = &"hover"
+
+[node name="PathLeft" type="Path2D" parent="Fists" unique_id=2132172306]
+curve = SubResource("Curve2D_hujxm")
+
+[node name="Left" type="PathFollow2D" parent="Fists/PathLeft" unique_id=665451220]
+position = Vector2(-192, 192)
+rotation = -0.7853982
+loop = false
+script = ExtResource("7_hujxm")
+
+[node name="Fist" type="Sprite2D" parent="Fists/PathLeft/Left" unique_id=528369875]
+texture = ExtResource("6_hujxm")
+offset = Vector2(-120, 100)
+
+[node name="PathRight" type="Path2D" parent="Fists" unique_id=1505510224]
+curve = SubResource("Curve2D_yyfjg")
+
+[node name="Right" type="PathFollow2D" parent="Fists/PathRight" unique_id=1891184956]
+position = Vector2(192, 192)
+rotation = -2.3561945
+loop = false
+script = ExtResource("7_hujxm")
+
+[node name="Fist" type="Sprite2D" parent="Fists/PathRight/Right" unique_id=1236147091]
+position = Vector2(0, 10)
+rotation = -0.30717796
+texture = ExtResource("6_hujxm")
+offset = Vector2(-120, -100)
+flip_v = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=946975474]
+anchor_mode = 0
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=851301243]
+stream = ExtResource("7_yyfjg")
+bus = &"MUSIC"
+script = SubResource("GDScript_7smn1")
+
+[connection signal="timeout" from="Ui/TimerLabel/Timer" to="Ui/TimerLabel" method="_on_timer_timeout"]
+[connection signal="timeout" from="Ui/TimerLabel/Timer" to="KeyTracker" method="_on_timer_timeout"]
+[connection signal="visibility_changed" from="GameOver/VBoxContainer/Score" to="GameOver/VBoxContainer/Score" method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="GameOver/VBoxContainer/Highscore" to="GameOver/VBoxContainer/Highscore" method="_on_visibility_changed"]
+[connection signal="key_pressed" from="KeyTracker" to="Barrel" method="_on_key_tracker_key_pressed"]
+[connection signal="key_pressed" from="KeyTracker" to="FloatingKeys" method="_on_key_tracker_key_pressed"]
+[connection signal="hit" from="Barrel" to="Fists" method="_on_barrel_hit"]
+
+[editable path="Barrel"]
